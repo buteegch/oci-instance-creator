@@ -1,20 +1,29 @@
 name: Oracle Cloud Instance Requester
 on:
-  workflow_dispatch: # Allows you to start it manually
+  workflow_dispatch: 
   schedule:
-    - cron: '*/30 * * * *' # This will run automatically every 30 minutes
+    - cron: '*/30 * * * *' 
 
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create Key File
+        run: |
+          mkdir -p keys
+          echo "${{ secrets.OCI_API_KEY }}" > keys/oci.key
+          chmod 600 keys/oci.key
+
       - name: Run OCI Instance Creator
         uses: docker://mowirth/oci-instance-creator:latest
         env:
           OCI_USER_ID: ${{ secrets.OCI_USER_ID }}
           OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
           OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
-          OCI_API_KEY: ${{ secrets.OCI_API_KEY }}
+          OCI_API_KEY_PATH: /github/workspace/keys/oci.key
           OCI_REGION: ${{ secrets.OCI_REGION }}
           OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
           OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
