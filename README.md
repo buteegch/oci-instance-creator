@@ -168,4 +168,4 @@ Example files are provided in the k8s folder.
 Contributions/Questions are always welcome, feel free to open an issue for further questions.
 
 Thanks to https://github.com/hitrov/oci-arm-host-capacity for providing the initial approach and most of the
-configuration required for OCI.
+configuration required for OCI. 
