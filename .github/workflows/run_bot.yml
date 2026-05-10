@@ -1,0 +1,23 @@
+name: Oracle Cloud Instance Requester
+on:
+  workflow_dispatch: # Allows you to start it manually
+  schedule:
+    - cron: '*/30 * * * *' # This will run automatically every 30 minutes
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run OCI Instance Creator
+        uses: docker://mowirth/oci-instance-creator:latest
+        env:
+          OCI_USER_ID: ${{ secrets.OCI_USER_ID }}
+          OCI_TENANCY_ID: ${{ secrets.OCI_TENANCY_ID }}
+          OCI_FINGERPRINT: ${{ secrets.OCI_FINGERPRINT }}
+          OCI_API_KEY: ${{ secrets.OCI_API_KEY }}
+          OCI_REGION: ${{ secrets.OCI_REGION }}
+          OCI_SUBNET_ID: ${{ secrets.OCI_SUBNET_ID }}
+          OCI_IMAGE_ID: ${{ secrets.OCI_IMAGE_ID }}
+          INSTANCE_SHAPE: ${{ secrets.SHAPE }}
+          INSTANCE_OCPUS: ${{ secrets.CPUS }}
+          INSTANCE_MEMORY: ${{ secrets.MEMORY }}
