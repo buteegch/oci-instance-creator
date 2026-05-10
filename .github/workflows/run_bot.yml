@@ -21,3 +21,4 @@ jobs:
           INSTANCE_SHAPE: ${{ secrets.SHAPE }}
           INSTANCE_OCPUS: ${{ secrets.CPUS }}
           INSTANCE_MEMORY: ${{ secrets.MEMORY }}
+          SSH_KEY: ${{ secrets.SSH_KEY }}
